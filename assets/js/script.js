@@ -13,15 +13,31 @@ const apiKey = '&APPID=4eb97f6b950a298d1bfb58ff1ca40061';
 const units = '&units=metric';
 let url;
 
-const getWeather = () => {
-    city = (!enterCityName.value) ? 'New York' : enterCityName.value;
 
+const getWeather = () => {
+
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.interimResults = true;
+
+    recognition.addEventListener('result', e => {
+        const transcript = Array.from(e.results)
+            .map(result => result[0])
+            .map(result => result.transcript)
+            .join('')
+        console.log(transcript);
+        enterCityName.value = transcript
+    })
+
+    recognition.addEventListener('end', recognition.start)
+    recognition.start()
+
+    city = (!enterCityName.value) ? 'New York' : enterCityName.value;
     url = apiLink + city + apiKey + units;
 
     fetch(url)
         .then(res => res.json())
         .then(res => {
-            console.log(res.main.pressure);
             const getTemperature = res.main.temp;
             const getHumidity = res.main.humidity;
             const getPressure = res.main.pressure

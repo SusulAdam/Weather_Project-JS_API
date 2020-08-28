@@ -48,6 +48,7 @@ button {
   cursor: pointer;
   transition: background-color .3s, color .3s;
   font-size: 10px;
+  outline: 0;
 
 }
 
