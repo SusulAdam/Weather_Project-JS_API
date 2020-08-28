@@ -17,13 +17,15 @@ const getWeather = () => {
 
     url = apiLink + city + apiKey + units;
 
-    axios.get(url)
+    fetch(url)
+        .then(res => res.json())
         .then(res => {
-            const temp = res.data.main.temp;
-            const hum = res.data.main.humidity;
-            const status = Object.assign({}, ...res.data.weather)
+            const temp = res.main.temp;
+            const hum = res.main.humidity;
+            const status = Object.assign({}, ...res.weather)
+
             const id = status.id
-            cityName.textContent = res.data.name;
+            cityName.textContent = res.name;
             weather.textContent = status.main
             temperature.textContent = Math.floor(temp) + '°C';
             humidity.textContent = hum + '%';
@@ -51,7 +53,8 @@ const getWeather = () => {
 
         }).catch(() => warning.textContent = 'Please enter a valid city name')
 };
-getWeather();
+
+getWeather()
 
 const enterCheck = () => {
     if (event.keyCode === 13) {
