@@ -1,11 +1,12 @@
-const input = document.querySelector('input');
-const btn = document.querySelector('button');
+const enterCityName = document.querySelector('.enterCityName');
+const getData = document.querySelector('button');
 const cityName = document.querySelector('.city-name');
 const warning = document.querySelector('.warning');
 const photo = document.querySelector('.photo');
 const weather = document.querySelector('.weather');
 const temperature = document.querySelector('.temp');
 const humidity = document.querySelector('.humidity');
+const pressure = document.querySelector('.pressure')
 
 const apiLink = 'https://api.openweathermap.org/data/2.5/weather?q=';
 const apiKey = '&APPID=4eb97f6b950a298d1bfb58ff1ca40061';
@@ -13,25 +14,29 @@ const units = '&units=metric';
 let url;
 
 const getWeather = () => {
-    city = (!input.value) ? 'New York' : input.value;
+    city = (!enterCityName.value) ? 'New York' : enterCityName.value;
 
     url = apiLink + city + apiKey + units;
 
     fetch(url)
         .then(res => res.json())
         .then(res => {
-            const temp = res.main.temp;
-            const hum = res.main.humidity;
-            const status = Object.assign({}, ...res.weather)
+            console.log(res.main.pressure);
+            const getTemperature = res.main.temp;
+            const getHumidity = res.main.humidity;
+            const getPressure = res.main.pressure
+            const getStatus = Object.assign({}, ...res.weather)
 
-            const id = status.id
+            const id = getStatus.id
             cityName.textContent = res.name;
-            weather.textContent = status.main
-            temperature.textContent = Math.floor(temp) + '°C';
-            humidity.textContent = hum + '%';
+            weather.textContent = getStatus.main
+
+            temperature.textContent = Math.floor(getTemperature) + '[°C]';
+            humidity.textContent = getHumidity + '[%]';
+            pressure.textContent = getPressure + '[hPa]'
 
             warning.textContent = '';
-            input.value = '';
+            enterCityName.value = '';
 
             if (id >= 200 && id <= 232) {
                 photo.setAttribute('src', "assets/WeatherApp+grafiki/WeatherApp grafiki/thunderstorm.png");
@@ -61,5 +66,5 @@ const enterCheck = () => {
         getWeather()
     }
 }
-btn.addEventListener('click', getWeather);
-input.addEventListener('keyup', enterCheck);
+getData.addEventListener('click', getWeather);
+enterCityName.addEventListener('keyup', enterCheck);
