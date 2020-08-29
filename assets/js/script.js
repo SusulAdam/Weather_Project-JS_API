@@ -13,24 +13,35 @@ const apiKey = '&APPID=4eb97f6b950a298d1bfb58ff1ca40061';
 const units = '&units=metric';
 let url;
 
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+recognition.interimResults = true;
+
+
+recognition.addEventListener('result', e => {
+    const transcript = Array.from(e.results)
+        .map(result => result[0])
+        .map(result => result.transcript)
+        .join('');
+    console.log(transcript);
+
+    enterCityName.value = transcript
+
+    if (e.results[0].isFinal) {
+        enterCityName.value = transcript
+    }
+
+})
+
+
+recognition.addEventListener('end', recognition.start);
+
+recognition.start();
+
 
 const getWeather = () => {
 
-    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recognition = new SpeechRecognition();
-    recognition.interimResults = true;
 
-    recognition.addEventListener('result', e => {
-        const transcript = Array.from(e.results)
-            .map(result => result[0])
-            .map(result => result.transcript)
-            .join('')
-        console.log(transcript);
-        enterCityName.value = transcript
-    })
-
-    recognition.addEventListener('end', recognition.start)
-    recognition.start()
 
     city = (!enterCityName.value) ? 'New York' : enterCityName.value;
     url = apiLink + city + apiKey + units;
