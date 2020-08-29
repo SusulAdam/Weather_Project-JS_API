@@ -17,7 +17,6 @@ window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogn
 const recognition = new SpeechRecognition();
 recognition.interimResults = true;
 
-
 recognition.addEventListener('result', e => {
     const transcript = Array.from(e.results)
         .map(result => result[0])
@@ -33,14 +32,11 @@ recognition.addEventListener('result', e => {
 
 })
 
-
 recognition.addEventListener('end', recognition.start);
-
 recognition.start();
 
 
 const getWeather = () => {
-
 
 
     city = (!enterCityName.value) ? 'New York' : enterCityName.value;
@@ -95,3 +91,4 @@ const enterCheck = () => {
 }
 getData.addEventListener('click', getWeather);
 enterCityName.addEventListener('keyup', enterCheck);
+recognition.addEventListener('end', getWeather);
