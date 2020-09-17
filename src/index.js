@@ -1,3 +1,17 @@
+import './styles/index.scss';
+
+const importAll = require =>
+    require.keys().reduce((acc, next) => {
+        acc[next.replace("./", "")] = require(next);
+        return acc;
+    }, {});
+
+const images = importAll(
+    require.context("./images", false, /\.(png|jpe?g|svg)$/)
+);
+
+
+
 const enterCityName = document.querySelector('.enterCityName');
 const getData = document.querySelector('button');
 const cityName = document.querySelector('.city-name');
@@ -16,6 +30,8 @@ const microphone = document.querySelector('.microphone');
 let url;
 let activeMicrophone = false
 let desactiveMicrophone = true
+let city;
+let copyactive;
 
 
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -78,21 +94,21 @@ const getWeather = () => {
             enterCityName.value = '';
 
             if (id >= 200 && id <= 232) {
-                photo.setAttribute('src', "assets/WeatherApp+grafiki/WeatherApp grafiki/thunderstorm.png");
+                photo.setAttribute('src', `{${images['dthunderstorm.png'].default}}`);
             } else if (id >= 300 && id <= 321) {
-                photo.setAttribute('src', "assets/WeatherApp+grafiki/WeatherApp grafiki/drizzle.png");
+                photo.setAttribute('src', `${images['drizzle.png'].default}`);
             } else if (id >= 500 && id <= 521) {
-                photo.setAttribute('src', "assets/WeatherApp+grafiki/WeatherApp grafiki/rain.png");
+                photo.setAttribute('src', `${images['rain.png'].default}`);
             } else if (id >= 600 && id < 700) {
-                photo.setAttribute('src', "assets/WeatherApp+grafiki/WeatherApp grafiki/ice.png");
+                photo.setAttribute('src', `${images['ice.png'].default}`);
             } else if (id >= 801 && id <= 804) {
-                photo.setAttribute('src', "assets/WeatherApp+grafiki/WeatherApp grafiki/cloud.png");
+                photo.setAttribute('src', `${images["cloud.png"].default}`);
             } else if (id === 800) {
-                photo.setAttribute('src', "assets/WeatherApp+grafiki/WeatherApp grafiki/sun.png");
+                photo.setAttribute('src', `${images['sun.png'].default}`);
             } else if (id >= 700 && id < 800) {
-                photo.setAttribute('src', "assets/WeatherApp+grafiki/WeatherApp grafiki/fog.png");
+                photo.setAttribute('src', `${images['fog.png'].default}`);
             } else {
-                photo.setAttribute('src', "assets/WeatherApp+grafiki/WeatherApp grafiki/unknown.png");
+                photo.setAttribute('src', `${images['unknown.png'].default}`);
             }
 
         }).catch(() => warning.textContent = 'Please enter a valid city name')
