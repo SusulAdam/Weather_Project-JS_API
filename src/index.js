@@ -1,5 +1,9 @@
 import './styles/index.scss';
 
+
+
+
+
 const importAll = require =>
     require.keys().reduce((acc, next) => {
         acc[next.replace("./", "")] = require(next);
@@ -27,11 +31,13 @@ const apiKey = '&APPID=4eb97f6b950a298d1bfb58ff1ca40061';
 const units = '&units=metric';
 const microphone = document.querySelector('.microphone');
 
+
 let url;
 let activeMicrophone = false
 let desactiveMicrophone = true
 let city;
 let copyactive;
+
 
 
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -60,8 +66,10 @@ microphone.addEventListener('click', function () {
     desactiveMicrophone = copyactive
     console.log(activeMicrophone);
     if (activeMicrophone === true) {
+        microphone.innerHTML = ''
         recognition.start();
         recognition.addEventListener('end', recognition.start);
+        microphone.innerHTML = '<i class="fas fa-microphone-slash"></i>'
     } else {
         location.reload();
     }
