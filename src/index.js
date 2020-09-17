@@ -1,9 +1,5 @@
 import './styles/index.scss';
 
-
-
-
-
 const importAll = require =>
     require.keys().reduce((acc, next) => {
         acc[next.replace("./", "")] = require(next);
