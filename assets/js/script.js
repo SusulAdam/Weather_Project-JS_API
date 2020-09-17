@@ -11,7 +11,12 @@ const pressure = document.querySelector('.pressure')
 const apiLink = 'https://api.openweathermap.org/data/2.5/weather?q=';
 const apiKey = '&APPID=4eb97f6b950a298d1bfb58ff1ca40061';
 const units = '&units=metric';
+const microphone = document.querySelector('.microphone');
+
 let url;
+let activeMicrophone = false
+let desactiveMicrophone = true
+
 
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
@@ -32,12 +37,23 @@ recognition.addEventListener('result', e => {
 
 })
 
-recognition.addEventListener('end', recognition.start);
-recognition.start();
+
+microphone.addEventListener('click', function () {
+    copyactive = activeMicrophone
+    activeMicrophone = desactiveMicrophone
+    desactiveMicrophone = copyactive
+    console.log(activeMicrophone);
+    if (activeMicrophone === true) {
+        recognition.start();
+        recognition.addEventListener('end', recognition.start);
+    } else {
+        location.reload();
+    }
+})
+
 
 
 const getWeather = () => {
-
 
     city = (!enterCityName.value) ? 'New York' : enterCityName.value;
     url = apiLink + city + apiKey + units;
@@ -84,11 +100,13 @@ const getWeather = () => {
 
 getWeather()
 
-const enterCheck = () => {
-    if (event.keyCode === 13) {
+const enterCheck = (enterClick) => {
+    if (enterClick.keyCode === 13) {
         getWeather()
     }
 }
 getData.addEventListener('click', getWeather);
 enterCityName.addEventListener('keyup', enterCheck);
+
+
 recognition.addEventListener('end', getWeather);
