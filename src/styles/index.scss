@@ -10,14 +10,12 @@
   align-items: center;
   height: 100vh;
   font-family: 'Montserrat', sans-serif;
-  // background: rgb(0, 129, 255);
-  // background: linear-gradient(90deg, rgba(0, 129, 255, 0.7987570028011204) 28%, rgba(16, 224, 212, 1) 100%);
   font-size: 20px;
   position: relative;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  z-index: -1;
+
 
   .weather-APP__overlayer {
     position: absolute;
@@ -31,31 +29,35 @@
 
 
   .wrapper {
-    width: 800px;
+    width: 1200px;
     height: 400px;
-    background-color: rgba(73, 73, 73, 0.8);
-    border: 2px solid white;
-    border-radius: 25px;
-    z-index: 3;
+
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 5;
 
 
-    .top {
+    .left {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       height: 260px;
 
-      h1 {
-        text-transform: uppercase;
-        text-align: center;
-        padding: 10px;
-      }
-
       .main-info {
-        display: flex;
-        justify-content: space-around;
         align-items: center;
-        height: 200px;
 
-        .city-name {
-          font-size: 40px;
+
+        .main-info__time {
+          padding: 0;
+          margin: 0;
+          font-size: 135px;
+        }
+
+        .main-info__data {
+          text-align: center;
+          margin-bottom: 25px;
         }
 
 
@@ -98,11 +100,7 @@
           background-color: #ddd;
         }
 
-        .photo {
-          width: 140px;
-          height: 140px;
-          color: white;
-        }
+
 
         .warning {
           margin-top: 10px;
@@ -112,39 +110,76 @@
       }
     }
 
-    .bottom {
-      height: 140px;
+    .right {
 
-      .headings,
-      .weather-info {
+      background-color: rgba($color: #000000, $alpha: 0.5);
+      width: 600px;
+      padding: 70px;
+
+      .city-name {
+        font-size: 40px;
+        border-bottom: solid;
+        margin-bottom: 25px;
+      }
+
+
+
+      .weather-info-container {
+        height: 65%;
+        font-size: 26px;
         display: flex;
         align-items: center;
-      }
 
-
-      .headings p,
-      .weather-info p {
-        width: 33.3%;
         text-align: center;
+        justify-content: space-between;
+
+
+        .photo {
+          width: 140px;
+          height: 140px;
+          color: white;
+        }
+
+
+        .weather-info__parameters {
+          display: flex;
+          flex-direction: column;
+          justify-content: start;
+          align-items: start;
+          font-size: 20px;
+
+
+
+          .temp {
+            font-size: 90px;
+          }
+
+
+          .weather {
+            color: #ddd;
+          }
+
+
+          .weather-info__humidity-items {
+            display: flex;
+            flex-direction: row;
+            color: #ddd;
+          }
+
+          .weather-info__pressure-items {
+            display: flex;
+            flex-direction: row;
+            color: #ddd;
+          }
+
+
+        }
+
       }
+
     }
 
-    .headings {
-      height: 35%;
-      text-transform: uppercase;
-      font-weight: bold;
-      border-top: 1px solid #ddd;
-      border-bottom: 1px solid #ddd;
-    }
 
-    .weather-info {
-      height: 65%;
-      font-size: 26px;
-
-      p {
-        font-size: 18px
-      }
-    }
 
   }
 

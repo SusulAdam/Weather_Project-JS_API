@@ -91,9 +91,9 @@ const getWeather = () => {
             cityName.textContent = res.name;
             weather.textContent = getStatus.main
 
-            temperature.textContent = Math.floor(getTemperature) + '[°C]';
-            humidity.textContent = getHumidity + '[%]';
-            pressure.textContent = getPressure + '[hPa]'
+            temperature.textContent = Math.floor(getTemperature) + '°';
+            humidity.textContent = `Humidity: ${getHumidity}%`;
+            pressure.textContent = ` Pressure: ${getPressure}hPa`
 
             warning.textContent = '';
             enterCityName.value = '';

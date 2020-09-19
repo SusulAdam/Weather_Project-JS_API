@@ -16,30 +16,38 @@
   <section class="weather-APP">
     <div class="weather-APP__overlayer"></div>
     <div class="wrapper">
-      <div class="top">
-        <h1>weather app</h1>
+      <div class="left">
         <div class="main-info">
           <div>
-            <h3 class="city-name"></h3>
+            <div class="main-info__time">09.53</div>
+            <div class="main-info__data">Starurday Jan 29</div>
+
+
             <input class="enterCityName" type=" text" placeholder="Enter a city name"><button>Send</button>
             <button class="microphone"><i class="fas fa-microphone"></i></button>
             <p class="warning"></p>
           </div>
-          <img src="" alt="Weather photo" class="photo">
+
         </div>
       </div>
-      <div class="bottom">
-        <div class="headings">
-          <p>Weather:</p>
-          <p>Temperature:</p>
-          <p>Humidity:</p>
-          <p>Pressure:</p>
-        </div>
-        <div class="weather-info">
-          <p class="weather"></p>
-          <p class="temp"></p>
-          <p class="humidity"></p>
-          <p class="pressure"></p>
+      <div class="right">
+        <h3 class="city-name"></h3>
+
+        <div class="weather-info-container">
+
+          <div class="weather-info__parameters">
+            <p class="temp"></p>
+            <p class="weather"></p>
+            <div class="weather-info__humidity-items">
+              <p class="humidity"></p>
+            </div>
+            <div class="weather-info__pressure-items">
+              <p class="pressure"></p>
+            </div>
+
+          </div>
+
+          <img src="" alt="Weather photo" class="photo">
         </div>
       </div>
     </div>
