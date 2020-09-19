@@ -30,3 +30,7 @@ Projects are created with:
 * SCSS
 * JS
 * API
+
+## Webpack
+
+I used webpack-boilerplate and modified it to suit my needs
