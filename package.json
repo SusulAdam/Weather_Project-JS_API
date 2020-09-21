@@ -10,8 +10,6 @@
   "keywords": [
     "webpack",
     "webpack 4",
-    "webpack boilerplate",
-    "boilerplate",
     "hmr"
   ],
   "devDependencies": {

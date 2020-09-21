@@ -54,16 +54,26 @@ const prepareDOMEvent = () => {
     enterCityName.addEventListener('keyup', enterCheck);
 }
 
+
 const main = () => {
     prepereDOMELEMENTS();
     prepareDOMEvent();
     getWeather();
     handleRecognitionSpeech();
+
+
 }
 
 const handleRecognitionSpeech = function () {
+
     microphone.addEventListener('click', function () {
         window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        try {
+            new SpeechRecognition();
+        } catch (e) {
+            alert('Your browser does not support speech recognition, try application on Google Chrome browser');
+        }
+
         const recognition = new SpeechRecognition();
         recognition.interimResults = true;
 
