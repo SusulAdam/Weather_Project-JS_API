@@ -11,23 +11,20 @@ const images = importAll(
     require.context("./images", false, /\.(png|jpe?g|svg)$/)
 );
 
-
-const enterCityName = document.querySelector('.enterCityName');
-const getData = document.querySelector('button');
-const cityName = document.querySelector('.city-name');
-const warning = document.querySelector('.warning');
-const photo = document.querySelector('.photo');
-const weather = document.querySelector('.weather');
-const temperature = document.querySelector('.temp');
-const humidity = document.querySelector('.humidity');
-const pressure = document.querySelector('.pressure');
-const weatherAppSection = document.querySelector('.weather-APP');
-
-const apiLink = 'https://api.openweathermap.org/data/2.5/weather?q=';
-const apiKey = '&APPID=4eb97f6b950a298d1bfb58ff1ca40061';
-const units = '&units=metric';
-const microphone = document.querySelector('.microphone');
-
+let enterCityName
+let getData;
+let cityName;
+let warning;
+let photo;
+let weather;
+let temperature;
+let humidity;
+let pressure;
+let weatherAppSection
+let apiLink;
+let apiKey;
+let units;
+let microphone;
 let url;
 let activeMicrophone = false
 let desactiveMicrophone = true
@@ -35,6 +32,34 @@ let city;
 let copyactive;
 
 
+const prepereDOMELEMENTS = () => {
+    enterCityName = document.querySelector('.enterCityName');
+    getData = document.querySelector('button');
+    cityName = document.querySelector('.city-name');
+    warning = document.querySelector('.warning');
+    photo = document.querySelector('.photo');
+    weather = document.querySelector('.weather');
+    temperature = document.querySelector('.temp');
+    humidity = document.querySelector('.humidity');
+    pressure = document.querySelector('.pressure');
+    weatherAppSection = document.querySelector('.weather-APP');
+    apiLink = 'https://api.openweathermap.org/data/2.5/weather?q=';
+    apiKey = '&APPID=4eb97f6b950a298d1bfb58ff1ca40061';
+    units = '&units=metric';
+    microphone = document.querySelector('.microphone');
+}
+
+const prepareDOMEvent = () => {
+    getData.addEventListener('click', getWeather);
+    enterCityName.addEventListener('keyup', enterCheck);
+}
+
+const main = () => {
+    prepereDOMELEMENTS();
+    prepareDOMEvent();
+    getWeather();
+    handleRecognitionSpeech();
+}
 
 const handleRecognitionSpeech = function () {
     microphone.addEventListener('click', function () {
@@ -57,17 +82,17 @@ const handleRecognitionSpeech = function () {
         if (activeMicrophone === true) {
             recognition.start();
             recognition.addEventListener('end', recognition.start);
-            microphone.innerHTML = '<i class="fas fa-microphone-slash"></i>'
+            microphone.innerHTML = '<i class="fas fa-microphone-slash"></i>';
             recognition.addEventListener('end', getWeather);
         } else {
-            microphone.innerHTML = '<i class="fas fa-microphone"></i>'
+            microphone.innerHTML = '<i class="fas fa-microphone"></i>';
             location.reload();
         }
     })
 
 }
 
-handleRecognitionSpeech()
+
 
 
 const getWeather = () => {
@@ -80,19 +105,19 @@ const getWeather = () => {
         .then(res => {
             const getTemperature = res.main.temp;
             const getHumidity = res.main.humidity;
-            const getPressure = res.main.pressure
-            const getStatus = Object.assign({}, ...res.weather)
+            const getPressure = res.main.pressure;
+            const getStatus = Object.assign({}, ...res.weather);
 
-            const id = getStatus.id
+            const id = getStatus.id;
             cityName.textContent = res.name;
-            weather.textContent = getStatus.main
+            weather.textContent = getStatus.main;
 
             temperature.textContent = Math.floor(getTemperature) + '°';
             humidity.textContent = `Humidity: ${getHumidity}%`;
-            pressure.textContent = ` Pressure: ${getPressure}hPa`
+            pressure.textContent = ` Pressure: ${getPressure}hPa`;
 
             warning.textContent = '';
-            // enterCityName.value = ''; // additional options it is possible to turn on, it clear input when respone from api is accept
+            // enterCityName.value = ''; // additional options it is possible to turn on, it clear input when respone from api is accept;
 
             if (id >= 200 && id <= 232) {
                 photo.setAttribute('src', `{${images['thunderstorm.png'].default}}`);
@@ -122,15 +147,18 @@ const getWeather = () => {
         }).catch(() => warning.textContent = 'Please enter a valid city name')
 };
 
-getWeather()
+
 
 const enterCheck = (enterClick) => {
     if (enterClick.keyCode === 13) {
-        getWeather()
+        getWeather();
     }
 }
-getData.addEventListener('click', getWeather);
-enterCityName.addEventListener('keyup', enterCheck);
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    main()
+})
 
 
 
