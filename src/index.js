@@ -33,20 +33,20 @@ let copyactive;
 
 
 const prepereDOMELEMENTS = () => {
-    enterCityName = document.querySelector('.enterCityName');
+    enterCityName = document.querySelector('.main-info__enterCityName');
     getData = document.querySelector('button');
     cityName = document.querySelector('.city-name');
-    warning = document.querySelector('.warning');
-    photo = document.querySelector('.photo');
-    weather = document.querySelector('.weather');
-    temperature = document.querySelector('.temp');
-    humidity = document.querySelector('.humidity');
-    pressure = document.querySelector('.pressure');
+    warning = document.querySelector('.main-info__warning');
+    photo = document.querySelector('.weather-info__photo');
+    weather = document.querySelector('.weather-info__weather');
+    temperature = document.querySelector('.weather-info__temp');
+    humidity = document.querySelector('.weather-info__humidity');
+    pressure = document.querySelector('.weather-info__pressure');
     weatherAppSection = document.querySelector('.weather-APP');
     apiLink = 'https://api.openweathermap.org/data/2.5/weather?q=';
     apiKey = '&APPID=4eb97f6b950a298d1bfb58ff1ca40061';
     units = '&units=metric';
-    microphone = document.querySelector('.microphone');
+    microphone = document.querySelector('.main-info__microphone');
 }
 
 const prepareDOMEvent = () => {
@@ -54,18 +54,14 @@ const prepareDOMEvent = () => {
     enterCityName.addEventListener('keyup', enterCheck);
 }
 
-
 const main = () => {
     prepereDOMELEMENTS();
     prepareDOMEvent();
     getWeather();
     handleRecognitionSpeech();
-
-
 }
 
 const handleRecognitionSpeech = function () {
-
     microphone.addEventListener('click', function () {
         window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         try {
@@ -101,9 +97,6 @@ const handleRecognitionSpeech = function () {
     })
 
 }
-
-
-
 
 const getWeather = () => {
 
@@ -158,17 +151,12 @@ const getWeather = () => {
 };
 
 
-
 const enterCheck = (enterClick) => {
     if (enterClick.keyCode === 13) {
         getWeather();
     }
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
     main()
 })
-
-
-
