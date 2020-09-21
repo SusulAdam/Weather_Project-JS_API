@@ -4,6 +4,8 @@
   padding: 0;
 }
 
+@import './variables';
+
 .weather-APP {
   display: flex;
   justify-content: center;
@@ -31,15 +33,14 @@
   .wrapper {
     width: 1200px;
     height: 400px;
-
-    color: white;
+    color: $mainColor;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 5;
 
 
-    .left {
+    .data-information-input-container {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -68,21 +69,20 @@
           margin-top: 10px;
           background: none;
           border: none;
-          color: #fff;
-          border-bottom: 2px solid #ddd;
+          color: $mainColor;
+          border-bottom: 2px solid $secondayColor;
           outline: none;
         }
 
         input::placeholder {
-          color: #ddd;
-          font-family: 'Montserrat', sans-serif;
+          color: $secondayColor;
         }
 
         button {
           outline: none;
           padding: 10px;
           margin-left: 20px;
-          color: #fff;
+          color: $mainColor;
           font-weight: bold;
           background: none;
           border-radius: 5px;
@@ -98,9 +98,8 @@
 
         button:hover {
           color: #333;
-          background-color: #ddd;
+          background-color: $secondayColor;
         }
-
 
 
         .warning {
@@ -111,7 +110,7 @@
       }
     }
 
-    .right {
+    .weather-main-information {
 
       background-color: rgba($color: #000000, $alpha: 0.5);
       width: 600px;
@@ -124,13 +123,11 @@
       }
 
 
-
       .weather-info-container {
         height: 65%;
         font-size: 26px;
         display: flex;
         align-items: center;
-
         text-align: center;
         justify-content: space-between;
 
@@ -149,39 +146,24 @@
           align-items: flex-start;
           font-size: 20px;
 
-
-
           .temp {
             font-size: 90px;
           }
 
-
-          .weather {
-            color: #ddd;
+          .weather,
+          .weather-info__humidity-items,
+          .weather-info__pressure-items {
+            color: $secondayColor;
           }
 
-
-          .weather-info__humidity-items {
-            display: flex;
-            flex-direction: row;
-            color: #ddd;
-          }
-
+          .weather-info__humidity-items,
           .weather-info__pressure-items {
             display: flex;
             flex-direction: row;
-            color: #ddd;
           }
-
-
         }
-
       }
 
     }
-
-
-
   }
-
 }
