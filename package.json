@@ -1,10 +1,8 @@
 {
-  "name": "webpack-boilerplate",
+  "name": "weather-application",
   "version": "1.0.0",
-  "description": "Webpack 4 Boilerplate",
   "main": "index.js",
-  "author": "Tania Rascia <tania@taniarascia.com>",
-  "license": "MIT",
+  "author": "Adam Susuł",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --config config/webpack.dev.js",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js"
@@ -47,5 +45,14 @@
     "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^5.1.4"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "permissions": {
+    "audio-capture": {
+      "description": "Audio capture"
+    },
+    "speech-recognition": {
+      "description": "Speech recognition"
+    }
+  },
+  "type": "privileged"
 }

@@ -1,4 +1,5 @@
 import './styles/index.scss';
+import date from './js/HandleDate';
 
 const importAll = require =>
     require.keys().reduce((acc, next) => {
@@ -9,7 +10,6 @@ const importAll = require =>
 const images = importAll(
     require.context("./images", false, /\.(png|jpe?g|svg)$/)
 );
-
 
 
 const enterCityName = document.querySelector('.enterCityName');
@@ -28,7 +28,6 @@ const apiKey = '&APPID=4eb97f6b950a298d1bfb58ff1ca40061';
 const units = '&units=metric';
 const microphone = document.querySelector('.microphone');
 
-
 let url;
 let activeMicrophone = false
 let desactiveMicrophone = true
@@ -37,41 +36,38 @@ let copyactive;
 
 
 
-window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const recognition = new SpeechRecognition();
-recognition.interimResults = true;
+const handleRecognitionSpeech = function () {
+    microphone.addEventListener('click', function () {
+        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.interimResults = true;
 
-recognition.addEventListener('result', e => {
-    const transcript = Array.from(e.results)
-        .map(result => result[0])
-        .map(result => result.transcript)
-        .join('');
-    console.log(transcript);
+        recognition.addEventListener('result', e => {
+            const transcript = Array.from(e.results)
+                .map(result => result[0])
+                .map(result => result.transcript)
+                .join('');
+            enterCityName.value = transcript;
+        })
 
-    enterCityName.value = transcript
+        copyactive = activeMicrophone
+        activeMicrophone = desactiveMicrophone
+        desactiveMicrophone = copyactive
+        console.log(activeMicrophone);
+        if (activeMicrophone === true) {
+            recognition.start();
+            recognition.addEventListener('end', recognition.start);
+            microphone.innerHTML = '<i class="fas fa-microphone-slash"></i>'
+            recognition.addEventListener('end', getWeather);
+        } else {
+            microphone.innerHTML = '<i class="fas fa-microphone"></i>'
+            location.reload();
+        }
+    })
 
-    if (e.results[0].isFinal) {
-        enterCityName.value = transcript
-    }
+}
 
-})
-
-
-microphone.addEventListener('click', function () {
-    copyactive = activeMicrophone
-    activeMicrophone = desactiveMicrophone
-    desactiveMicrophone = copyactive
-    console.log(activeMicrophone);
-    if (activeMicrophone === true) {
-        microphone.innerHTML = ''
-        recognition.start();
-        recognition.addEventListener('end', recognition.start);
-        microphone.innerHTML = '<i class="fas fa-microphone-slash"></i>'
-    } else {
-        location.reload();
-    }
-})
-
+handleRecognitionSpeech()
 
 
 const getWeather = () => {
@@ -96,7 +92,7 @@ const getWeather = () => {
             pressure.textContent = ` Pressure: ${getPressure}hPa`
 
             warning.textContent = '';
-            enterCityName.value = '';
+            // enterCityName.value = ''; // additional options it is possible to turn on, it clear input when respone from api is accept
 
             if (id >= 200 && id <= 232) {
                 photo.setAttribute('src', `{${images['thunderstorm.png'].default}}`);
@@ -122,9 +118,7 @@ const getWeather = () => {
             } else {
                 photo.setAttribute('src', `${images['unknown.png'].default}`);
                 weatherAppSection.style.backgroundImage = `url(${images['unknownBackground.png'].default})`;
-
             }
-
         }).catch(() => warning.textContent = 'Please enter a valid city name')
 };
 
@@ -139,4 +133,4 @@ getData.addEventListener('click', getWeather);
 enterCityName.addEventListener('keyup', enterCheck);
 
 
-recognition.addEventListener('end', getWeather);
+

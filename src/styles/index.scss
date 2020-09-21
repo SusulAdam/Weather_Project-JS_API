@@ -45,6 +45,7 @@
       justify-content: center;
       height: 260px;
 
+
       .main-info {
         align-items: center;
 
@@ -144,8 +145,8 @@
         .weather-info__parameters {
           display: flex;
           flex-direction: column;
-          justify-content: start;
-          align-items: start;
+          justify-content: flex-start;
+          align-items: flex-start;
           font-size: 20px;
 
 
